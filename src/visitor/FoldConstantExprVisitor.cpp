@@ -5,14 +5,12 @@
  */
 
 #include "visitor/FoldConstantExprVisitor.h"
-
 #include "context/QueryExpressionContext.h"
 
 namespace nebula {
 namespace graph {
 
-void FoldConstantExprVisitor::visit(ConstantExpression *expr) {
-    UNUSED(expr);
+void FoldConstantExprVisitor::visit(ConstantExpression *) {
     canBeFolded_ = true;
 }
 
@@ -30,13 +28,11 @@ void FoldConstantExprVisitor::visit(TypeCastingExpression *expr) {
     }
 }
 
-void FoldConstantExprVisitor::visit(LabelExpression *expr) {
-    UNUSED(expr);
+void FoldConstantExprVisitor::visit(LabelExpression *) {
     canBeFolded_ = false;
 }
 
-void FoldConstantExprVisitor::visit(LabelAttributeExpression *expr) {
-    UNUSED(expr);
+void FoldConstantExprVisitor::visit(LabelAttributeExpression *) {
     canBeFolded_ = false;
 }
 
@@ -53,8 +49,7 @@ void FoldConstantExprVisitor::visit(SubscriptExpression *expr) {
     visitBinaryExpr(expr);
 }
 
-void FoldConstantExprVisitor::visit(AttributeExpression *expr) {
-    UNUSED(expr);
+void FoldConstantExprVisitor::visit(AttributeExpression *) {
     canBeFolded_ = false;
 }
 
@@ -78,19 +73,16 @@ void FoldConstantExprVisitor::visit(FunctionCallExpression *expr) {
     canBeFolded_ = canBeFolded;
 }
 
-void FoldConstantExprVisitor::visit(UUIDExpression *expr) {
-    UNUSED(expr);
+void FoldConstantExprVisitor::visit(UUIDExpression *) {
     canBeFolded_ = false;
 }
 
 // variable expression
-void FoldConstantExprVisitor::visit(VariableExpression *expr) {
-    UNUSED(expr);
+void FoldConstantExprVisitor::visit(VariableExpression *) {
     canBeFolded_ = false;
 }
 
-void FoldConstantExprVisitor::visit(VersionedVariableExpression *expr) {
-    UNUSED(expr);
+void FoldConstantExprVisitor::visit(VersionedVariableExpression *) {
     canBeFolded_ = false;
 }
 
@@ -150,64 +142,52 @@ void FoldConstantExprVisitor::visit(MapExpression *expr) {
 }
 
 // property Expression
-void FoldConstantExprVisitor::visit(TagPropertyExpression *expr) {
-    UNUSED(expr);
+void FoldConstantExprVisitor::visit(TagPropertyExpression *) {
     canBeFolded_ = false;
 }
 
-void FoldConstantExprVisitor::visit(EdgePropertyExpression *expr) {
-    UNUSED(expr);
+void FoldConstantExprVisitor::visit(EdgePropertyExpression *) {
     canBeFolded_ = false;
 }
 
-void FoldConstantExprVisitor::visit(InputPropertyExpression *expr) {
-    UNUSED(expr);
+void FoldConstantExprVisitor::visit(InputPropertyExpression *) {
     canBeFolded_ = false;
 }
 
-void FoldConstantExprVisitor::visit(VariablePropertyExpression *expr) {
-    UNUSED(expr);
+void FoldConstantExprVisitor::visit(VariablePropertyExpression *) {
     canBeFolded_ = false;
 }
 
-void FoldConstantExprVisitor::visit(DestPropertyExpression *expr) {
-    UNUSED(expr);
+void FoldConstantExprVisitor::visit(DestPropertyExpression *) {
     canBeFolded_ = false;
 }
 
-void FoldConstantExprVisitor::visit(SourcePropertyExpression *expr) {
-    UNUSED(expr);
+void FoldConstantExprVisitor::visit(SourcePropertyExpression *) {
     canBeFolded_ = false;
 }
 
-void FoldConstantExprVisitor::visit(EdgeSrcIdExpression *expr) {
-    UNUSED(expr);
+void FoldConstantExprVisitor::visit(EdgeSrcIdExpression *) {
     canBeFolded_ = false;
 }
 
-void FoldConstantExprVisitor::visit(EdgeTypeExpression *expr) {
-    UNUSED(expr);
+void FoldConstantExprVisitor::visit(EdgeTypeExpression *) {
     canBeFolded_ = false;
 }
 
-void FoldConstantExprVisitor::visit(EdgeRankExpression *expr) {
-    UNUSED(expr);
+void FoldConstantExprVisitor::visit(EdgeRankExpression *) {
     canBeFolded_ = false;
 }
 
-void FoldConstantExprVisitor::visit(EdgeDstIdExpression *expr) {
-    UNUSED(expr);
+void FoldConstantExprVisitor::visit(EdgeDstIdExpression *) {
     canBeFolded_ = false;
 }
 
 // vertex/edge expression
-void FoldConstantExprVisitor::visit(VertexExpression *expr) {
-    UNUSED(expr);
+void FoldConstantExprVisitor::visit(VertexExpression *) {
     canBeFolded_ = false;
 }
 
-void FoldConstantExprVisitor::visit(EdgeExpression *expr) {
-    UNUSED(expr);
+void FoldConstantExprVisitor::visit(EdgeExpression *) {
     canBeFolded_ = false;
 }
 

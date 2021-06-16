@@ -158,8 +158,6 @@ public:
         kShowFTIndexes,
         kSignInTSService,
         kSignOutTSService,
-        kDownload,
-        kIngest,
         kShowSessions,
         kUpdateSession,
     };

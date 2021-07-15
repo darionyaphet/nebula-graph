@@ -45,10 +45,18 @@ def init_parser():
                           default='',
                           help='Support multi graphds')
     opt_parser.add_option('--address',
-                        dest='address',
-                        default='',
-                        help='Address of the Nebula')
+                          dest='address',
+                          default='',
+                          help='Address of the Nebula')
+    opt_parser.add_option('--debug',
+                          dest='debug',
+                          default=True,
+                          help='Print verbose debug logs')
     return opt_parser
+
+
+def opt_is(val, expect):
+    return type(val) == str and val.lower() == expect
 
 
 def start_nebula(nb, configs):
@@ -57,14 +65,15 @@ def start_nebula(nb, configs):
         if len(configs.address.split(':')) != 2:
             raise Exception('Invalid address, address is {}'.format(configs.address))
         address, port = configs.address.split(':')
-        port = int(port)
+        ports = [int(port)]
     else:
         nb.install()
         address = "localhost"
-        port = nb.start(multi_graphd=configs.multi_graphd)
+        debug = opt_is(configs.debug, "true")
+        ports = nb.start(debug_log=debug, multi_graphd=configs.multi_graphd)
 
     # Load csv data
-    pool = get_conn_pool(address, port)
+    pool = get_conn_pool(address, ports[0])
     sess = pool.get_session(configs.user, configs.password)
 
     if not os.path.exists(TMP_DIR):
@@ -81,7 +90,7 @@ def start_nebula(nb, configs):
     with open(NB_TMP_PATH, "w") as f:
         data = {
             "ip": "localhost",
-            "port": port,
+            "port": ports,
             "work_dir": nb.work_dir
         }
         f.write(json.dumps(data))
@@ -92,17 +101,13 @@ def stop_nebula(nb, configs=None):
     if configs.address is not None and configs.address != "":
         print('test remote nebula graph, no need to stop nebula.')
         return
-   
+
     with open(NB_TMP_PATH, "r") as f:
         data = json.loads(f.readline())
         nb.set_work_dir(data["work_dir"])
     nb.stop()
     shutil.rmtree(TMP_DIR, ignore_errors=True)
     print('nebula services have been stopped.')
-
-
-def opt_is(val, expect):
-    return type(val) == str and val.lower() == expect
 
 
 if __name__ == "__main__":
